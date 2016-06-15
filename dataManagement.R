@@ -97,6 +97,43 @@ samp615 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample615t
   mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
   select(-CommonName)%>%#remove old CommonName column
   plyr::rename(c('lCommonName'='CommonName'))
+### ABOVE FALLS SITES
+#Bring in test taxa list (sample 009)
+samp009 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample009taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 062)
+samp062 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample062taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 049)
+samp049 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample049taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 048)
+samp048 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample048taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 047)
+samp047 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample047taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 192)
+samp192 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample192taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
 
 
 
@@ -150,3 +187,22 @@ colnames(samp605_att) <- c('CommonName','ScientificName','Count','attLevel') #re
 samp615_att <- join(samp615,taxaAtt,by=c('CommonName','ScientificName'))%>%
   select(c(CommonName,ScientificName,Count,UpperNew))
 colnames(samp615_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+## ABOVE FALLS SITES
+samp009_att <- join(samp009,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp009_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp062_att <- join(samp062,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp062_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp049_att <- join(samp049,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp049_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp048_att <- join(samp048,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp048_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp047_att <- join(samp047,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp047_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp192_att <- join(samp192,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp192_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions

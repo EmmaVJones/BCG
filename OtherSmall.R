@@ -95,12 +95,12 @@ P_Dom56t <- function(sample){(max(filter(sample,attLevel %in% c('5','6t'))$Count
 # Number of Attribute 1,2,&3 taxa
 T_123 <- function(sample){sum(sample$attLevel %in% c(1,2,3))}
 # % Attribute 5&6 taxa
-T_56 <- function(sample){(sum(sample$attLevel %in% c('5','6i','6m','6t'))/totTax(sample))*100}
+P_56 <- function(sample){(sum(sample$attLevel %in% c('5','6i','6m','6t'))/totTax(sample))*100}
 
 # Master metric that outputs dataframe of all results
 masterMetric <- function(sampleName,sample){
   data.frame(SampleName=sampleName,totTax=totTax(sample),T_12(sample),P_123(sample),PI_123(sample),PI_5(sample),PI_56t(sample)
-             ,T_6(sample),T_6t(sample),T_darter(sample),N_bTrout(sample),P_Dom56t(sample),T_123(sample),T_56(sample))}
+             ,T_6(sample),T_6t(sample),T_darter(sample),N_bTrout(sample),P_Dom56t(sample),T_123(sample),P_56(sample))}
 
 # BCG Fuzzy Membership logic
 fuzzyMembership <- function(metric,low,high){metric/(high-low)-low/(high-low)}
@@ -130,7 +130,7 @@ otherSmall_BCGlevel3alt2 <- function(test){
   data.frame(fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,4,10)),fm_PI_123=fmFinal(fuzzyMembership(test$PI_123.sample.,5,15))
              ,fm_T_6=fmFinal(1-fuzzyMembership(test$T_6.sample.,1,5)),fm_N_bTrout=fmFinal(fuzzyMembership(test$N_bTrout.sample.,0,3)))}
 otherSmall_BCGlevel4alt1 <- function(test){
-  data.frame(fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,0,1)),fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t.sample.,80,90)))}
+  data.frame(fm_T_123=fmFinal(fuzzyMembership(test$T_123.sample.,0,1)),fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t.sample.,80,90)))}
 otherSmall_BCGlevel4alt2 <- function(test){
   data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,13,23)),fm_P_Dom56t=fmFinal(1-fuzzyMembership(test$P_Dom56t.sample.,25,35))
              ,fm_T_darter=fmFinal(fuzzyMembership(test$T_darter.sample.,1,4)))}

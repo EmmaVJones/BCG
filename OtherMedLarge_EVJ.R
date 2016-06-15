@@ -14,19 +14,43 @@ taxaAttJ <- read_excel('C:/HardDriveBackup/R/BCG/Lou/emma_example_TaxaAttributeL
   plyr::rename(c('lCommonName'='CommonName'))
 
 #Bring in test taxa list (sample 212)
-samp212 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/Sample212taxaList.csv') %>%
+samp212 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample212taxaList.csv') %>%
   select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
   mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
   select(-CommonName)%>%#remove old CommonName column
   plyr::rename(c('lCommonName'='CommonName'))
-#Bring in test taxa list2 (sample 371)
-samp371 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/Sample371taxaList.csv') %>%
+#Bring in test taxa list (sample 214)
+samp214 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample214taxaList.csv') %>%
   select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
   mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
   select(-CommonName)%>%#remove old CommonName column
   plyr::rename(c('lCommonName'='CommonName'))
-#Bring in test taxa list2 (sample 217)
-samp217 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/Sample217taxaList.csv') %>%
+#Bring in test taxa list (sample 217)
+samp217 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample217taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 371)
+samp371 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample371taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 393)
+samp393 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample393taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 605)
+samp605 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample605taxaList.csv') %>%
+  select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
+  mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
+  select(-CommonName)%>%#remove old CommonName column
+  plyr::rename(c('lCommonName'='CommonName'))
+#Bring in test taxa list (sample 615)
+samp615 <- read.csv('C:/HardDriveBackup/R/BCG/FiguringItOut/taxaLists/Sample615taxaList.csv') %>%
   select(-BCGAttribute) %>%#drop BCG attribute info so can link to lookup table of taxa Attributes by basin
   mutate(lCommonName=tolower(CommonName))%>% #make all common names lowercase
   select(-CommonName)%>%#remove old CommonName column
@@ -42,12 +66,27 @@ taxaAtt <- join(taxaAttJ,taxaAttL,by=c('CommonName','ScientificName'))
 samp212_att <- join(samp212,taxaAtt,by=c('CommonName','ScientificName'))%>%
   select(c(CommonName,ScientificName,Count,UpperNew))
 colnames(samp212_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
-samp371_att <- join(samp371,taxaAtt,by=c('CommonName','ScientificName'))%>%
+samp214_att <- join(samp214,taxaAtt,by=c('CommonName','ScientificName'))%>%
   select(c(CommonName,ScientificName,Count,UpperNew))
-colnames(samp371_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+colnames(samp214_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
 samp217_att <- join(samp217,taxaAtt,by=c('CommonName','ScientificName'))%>%
   select(c(CommonName,ScientificName,Count,UpperNew))
 colnames(samp217_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp371_att <- join(samp371,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp371_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp393_att <- join(samp393,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp393_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp405_att <- join(samp405,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp405_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp605_att <- join(samp605,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp605_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
+samp615_att <- join(samp615,taxaAtt,by=c('CommonName','ScientificName'))%>%
+  select(c(CommonName,ScientificName,Count,UpperNew))
+colnames(samp615_att) <- c('CommonName','ScientificName','Count','attLevel') #rename basin to generic name for functions
 #---------------------------------------- End Data Management -------------------------------------------------
 
 
@@ -112,7 +151,7 @@ otherMedLarge_BCGlevel2 <- function(test){
 otherMedLarge_BCGlevel3 <- function(test){
   data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,9,19)),fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,4,10))
              ,fm_PI_123=fmFinal(fuzzyMembership(test$PI_123.sample.,3,7)),fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t.sample.,65,75))
-             ,fm_P_Dom56t=fmFinal(1-fuzzyMembership(test$P_Dom56t.sample.,30,40)),fm_T_6=fmFinal(1-fuzzyMembership(test$T_6.sample.,1,5)))}
+             ,fm_P_Dom56t=fmFinal(1-fuzzyMembership(test$P_Dom56t.sample.,25,35)),fm_T_6=fmFinal(1-fuzzyMembership(test$T_6.sample.,1,5)))}
 
 otherMedLarge_BCGlevel4alt1 <- function(test){
   data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,7,15)),fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,0,1))
@@ -141,7 +180,7 @@ OtherMedLargeModel <- function(sampleName,taxaListFromOneSite){
                       ,nominalTier=colnames(levelresult[,6:11])[apply(levelresult[6:11],1,which.max)]
                       ,nominalMembership=apply(levelresult[,6:11],1,max)
                       ,secondMembership=placehold[1,]
-                      ,runnerupTier=colnames(placehold))%>%
+                      ,runnerupTier=ifelse(placehold[1,]==0,"",colnames(placehold)))%>%
     mutate(close=ifelse(nominalMembership-secondMembership<0.1,"tie"
                         ,ifelse(nominalMembership-secondMembership<0.2,"yes","")))
   return(final)

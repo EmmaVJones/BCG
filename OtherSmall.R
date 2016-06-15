@@ -158,7 +158,7 @@ OtherSmallModel <- function(sampleName,taxaListFromOneSite){
                       ,nominalTier=colnames(levelresult[,6:11])[apply(levelresult[6:11],1,which.max)]
                       ,nominalMembership=apply(levelresult[,6:11],1,max)
                       ,secondMembership=placehold[1,]
-                      ,runnerupTier=colnames(placehold))%>%
+                      ,runnerupTier=ifelse(placehold[1,]==0,"",colnames(placehold)))%>%
     mutate(close=ifelse(nominalMembership-secondMembership<0.1,"tie"
                         ,ifelse(nominalMembership-secondMembership<0.2,"yes","")))
   return(final)
@@ -167,3 +167,13 @@ OtherSmallModel <- function(sampleName,taxaListFromOneSite){
 OtherSmallResults <- rbind(OtherSmallModel("Sample427",samp427_att),OtherSmallModel("Sample363",samp363_att)
                            ,OtherSmallModel("Sample477",samp477_att),OtherSmallModel("Sample360",samp360_att)
                            ,OtherSmallModel("Sample362",samp362_att),OtherSmallModel("Sample600",samp600_att))
+
+
+placehold<-sort(levelresult[6:11],TRUE)[2]
+runnerupTier=ifelse(placehold[1,]==0,"",colnames(placehold))
+
+nominalMembership<-0.41
+secondMembership<-0.2
+
+ifelse(secondMembership==0,"",ifelse(nominalMembership-secondMembership<0.1,"tie"
+                                    ,ifelse(nominalMembership-secondMembership<0.2,"yes","")))

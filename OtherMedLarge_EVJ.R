@@ -142,7 +142,7 @@ fmFinal <- function(x){
 # BCG level logic, starting at Other Medium/Large
 otherMedLarge_BCGlevel2 <- function(test){
   data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,10,20)),fm_T_12=fmFinal(fuzzyMembership(test$T_12.sample.,0,1))
-             ,fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,5,15)),fm_PI_123=fmFinal(fuzzyMembership(test$PI_123.sample.,15,20))
+             ,fm_P_123=fmFinal(fuzzyMembership(test$P_123.sample.,5,15)),fm_PI_123=fmFinal(fuzzyMembership(test$PI_123.sample.,15,25))
              ,fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t.sample.,55,65)),fm_T_6=fmFinal(1-fuzzyMembership(test$T_6.sample.,1,3)))}
 # call all BCG level functions like below
 #otherMedLarge_BCGlevel2(test)

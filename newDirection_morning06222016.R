@@ -115,6 +115,35 @@ aboveFallsMedLarge_BCGlevel4alt2 <- function(test){
              ,fm_P_56=fmFinal(1-fuzzyMembership(test$P_56,60,70)),fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t,65,75)))}
 aboveFallsMedLarge_BCGlevel5 <- function(test){data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,2,5)))}
 
+# BCG level logic, starting at Above Falls Small
+aboveFallsSmall_BCGlevel2alt1 <- function(test){
+  data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,8,12)),fm_T_12=fmFinal(fuzzyMembership(test$T_12,0,1))
+             ,fm_P_123=fmFinal(fuzzyMembership(test$P_123,20,30)),fm_PI_123=fmFinal(fuzzyMembership(test$PI_123,25,35))
+             ,fm_PI_5=fmFinal(1-fuzzyMembership(test$PI_5,30,40)),fm_T_6=fmFinal(1-fuzzyMembership(test$T_6,2,5))
+             ,fm_T_6t=fmFinal(1-fuzzyMembership(test$T_6t,0,1)))}
+aboveFallsSmall_BCGlevel2alt2 <- function(test){
+  data.frame(fm_T_12=fmFinal(fuzzyMembership(test$T_12,0,1)),fm_P_123=fmFinal(fuzzyMembership(test$P_123,20,30))
+             ,fm_PI_123=fmFinal(fuzzyMembership(test$PI_123,25,35)),fm_PI_5=fmFinal(1-fuzzyMembership(test$PI_5,30,40))
+             ,fm_T_6=fmFinal(1-fuzzyMembership(test$T_6,2,5)),fm_T_6t=fmFinal(1-fuzzyMembership(test$T_6t,0,1))
+             ,fm_N_bTrout=fmFinal(fuzzyMembership(test$N_bTrout,0,3)))}
+aboveFallsSmall_BCGlevel3alt1 <- function(test){
+  data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,4,11)),fm_P_123=fmFinal(fuzzyMembership(test$P_123,5,15))
+             ,fm_PI_123=fmFinal(fuzzyMembership(test$PI_123,15,25)),fm_PI_5=fmFinal(1-fuzzyMembership(test$PI_5,50,60))
+             ,fm_T_6t=fmFinal(1-fuzzyMembership(test$T_6t,1,4)))}
+
+aboveFallsSmall_BCGlevel3alt2 <- function(test){
+  data.frame(fm_P_123=fmFinal(fuzzyMembership(test$P_123,5,15)),fm_PI_123=fmFinal(fuzzyMembership(test$PI_123,15,25))
+             ,fm_PI_5=fmFinal(1-fuzzyMembership(test$PI_5,50,60)),fm_T_6t=fmFinal(1-fuzzyMembership(test$T_6t,1,4))
+             ,fm_N_bTrout=fmFinal(fuzzyMembership(test$N_bTrout,0,3)))}
+aboveFallsSmall_BCGlevel4alt1 <- function(test){
+  data.frame(fm_T_123=fmFinal(fuzzyMembership(test$T_123,1,2)),fm_P_123=fmFinal(fuzzyMembership(test$P_123,3,7))
+             ,fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t,70,80)))}
+aboveFallsSmall_BCGlevel4alt2 <- function(test){
+  data.frame(fm_P_123=fmFinal(fuzzyMembership(test$P_123,3,7)),fm_P_56=fmFinal(fuzzyMembership(test$P_56,60,70))
+             ,fm_PI_56t=fmFinal(1-fuzzyMembership(test$PI_56t,70,80)))}
+aboveFallsSmall_BCGlevel5 <- function(test){data.frame(fm_totTax=fmFinal(fuzzyMembership(test$totTax,2,5)))}
+
+
 
 
 ### Other Medium/Large BCG Model
@@ -187,8 +216,32 @@ AboveFallsMedLargeModel <- function(sampleName,taxaListFromOneSite){
   return(final)
 }
 
+### Above Falls Small BCG Model
+AboveFallsSmallModel <- function(sampleName,taxaListFromOneSite){
+  metricResults <- masterMetric(sampleName,taxaListFromOneSite)
+  levelresult <- data.frame(SampleName=metricResults[1]
+                            ,BCGlevel5=min(aboveFallsSmall_BCGlevel5(metricResults))
+                            ,BCGlevel4=max(min(aboveFallsSmall_BCGlevel4alt1(metricResults)),min(aboveFallsSmall_BCGlevel4alt2(metricResults)))
+                            ,BCGlevel3=max(min(aboveFallsSmall_BCGlevel3alt1(metricResults)),min(aboveFallsSmall_BCGlevel3alt2(metricResults)))
+                            ,BCGlevel2=max(min(aboveFallsSmall_BCGlevel2alt1(metricResults)),min(aboveFallsSmall_BCGlevel2alt2(metricResults))))%>%
+    mutate(Level1=0,Level2=min(1-Level1,BCGlevel2),Level3=min(1-sum(Level1,Level2),BCGlevel3)
+           ,Level4=min(1-sum(Level1,Level2,Level3),BCGlevel4)
+           ,Level5=min(1-sum(Level1,Level2,Level3,Level4),BCGlevel5)
+           ,Level6=1-sum(Level1,Level2,Level3,Level4,Level5))
+  placehold<-sort(levelresult[6:11],TRUE)[2] # pick second highest BCG level, can't be done in mutate statement
+  final <- data.frame(SampleName=metricResults[1]
+                      ,nominalTier=colnames(levelresult[,6:11])[apply(levelresult[6:11],1,which.max)]
+                      ,nominalMembership=apply(levelresult[,6:11],1,max)
+                      ,secondMembership=placehold[1,]
+                      ,runnerupTier=ifelse(placehold[1,]==0,"",colnames(placehold)))%>%
+    mutate(close=ifelse(nominalMembership-secondMembership<0.1,"tie"
+                        ,ifelse(nominalMembership-secondMembership<0.2,"yes","")))
+  return(final)
+}
 
-splits <- split(sampleList,sampleList$SampleName,drop=T)%>%
+#-------------------------------------------------------------------------------------------------------
+### Put actual data in
+splits <- split(sampleList,sampleList$SampleName,drop=T)%>% #Split dataframe into multiple df's in a list
   lapply(function(x) x[!(names(x) %in% c('SampleName'))])
 
 options(digits = 3)
@@ -203,12 +256,18 @@ for(i in 1:length(splits)){
   sampleathand <- data.frame(splits[[i]])
   if(splits[[i]]$SubBasin[1] %in% c('New','UNew')){
     if(splits[[i]]$Catchment[1] < 10){
-      result<- rbind(result,cbind(OtherSmallModel(samplename,sampleathand),Model='AboveFalls,Small'))
+      result<- rbind(result,cbind(AboveFallsSmallModel(samplename,sampleathand),Model='AboveFalls,Small'))
     }else{
-      result<- rbind(result,cbind(OtherMedLargeModel(samplename,sampleathand),Model='Above,MediumLarge'))
+      result<- rbind(result,cbind(AboveFallsMedLargeModel(samplename,sampleathand),Model='AboveFalls,MediumLarge'))
     }
-    result<-filter(result,!(SampleName=='NA'))
+  }else{
+    if(splits[[i]]$Catchment[1] < 10){
+      result<- rbind(result,cbind(OtherSmallModel(samplename,sampleathand),Model='Other,Small'))
+    }else{
+      result<- rbind(result,cbind(OtherMedLargeModel(samplename,sampleathand),Model='Other,MediumLarge'))
+    }
   }
+  result<-filter(result,!(SampleName=='NA'))
 }
 
 

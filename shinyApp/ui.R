@@ -1,3 +1,7 @@
+library(shiny)
+library(leaflet)
+
+
 shinyUI(
   navbarPage('Ecoregion 69 BCG Model: Fish',
              tabPanel('About',fluidRow(column(10,
@@ -34,7 +38,7 @@ shinyUI(
                         p("Please upload subbasin shapefile. If this is your first time running the app, the
                           subbasin shapefile may be downloaded from: ____DEQWebsite__________. Make sure you 
                           unzip the file prior to uploading it to the BCG application. Remember to select all
-                          6 files that make up a shape file when uploading the GIS data (.shp, .dbf, .sbn, 
+                          6 files that make up a shapefile when uploading the GIS data (.shp, .dbf, .sbn, 
                           .sbx, .shx, and .prj)."),
                         hr(),
                         fileInput('GISbasins','Upload Subbasins shapefile',accept=c('.shp','.dbf','.sbn','.sbx'
@@ -46,8 +50,20 @@ shinyUI(
              tabPanel('BGC Model Results',
                       sidebarPanel(
                         h4(strong('Instructions:')),
-                        p("Once you have ensured the sites are plotting in the correct")
-                      ))
+                        p("Once you have ensured the sites are plotting in the correct Subbasin, click 'Run BCG Model'
+                          to run the model. Once the calculations are complege, results will be displayed in a table
+                          in the main panel. A progress bar on the top of the screen will indicate computational 
+                          progress. You may download a flat file of results by clicking the 'Download Results' button or you 
+                          can send results back to your database (if connected) by clicking 'Send to Database.'"),
+                        actionButton("runModel","Run BCG Model"),
+                        br(),
+                        hr(),
+                        downloadButton("downloadResults","Download Results"),
+                        actionButton("sendtoDB","Send to Database")),
+                      mainPanel(
+                        h4(strong('BCG Model Results'),
+                           tableOutput('BCGresults')))
+             )))
                                             
 
                                               

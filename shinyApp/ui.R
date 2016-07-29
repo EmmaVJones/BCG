@@ -40,8 +40,8 @@ shinyUI(
                         fileInput('GISbasins','Upload Subbasins shapefile',accept=c('.shp','.dbf','.sbn','.sbx'
                                                                                     ,'.shx',".prj"), multiple=TRUE)),
                       mainPanel(# conditional panel? make them upload data first?
-                        verbatimTextOutput('GISbasins2'),
-                        verbatimTextOutput('datapath2'),
+                        p('Click on sites and basins for further information.'),
+                        p('Review the table below to ensure all sites are associated with the correct subbasin.'),
                         leafletOutput('Map'),
                         tableOutput('stationsWithSubbasins'))
                       ),

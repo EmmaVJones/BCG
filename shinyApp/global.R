@@ -428,28 +428,7 @@ AboveFallsSmallModel_NOBKT <- function(sampleName,taxaListFromOneSite){
 }
 
 ### GIS COMPONENT
-SubbasinConnection <- function(dfInCorrectFormat){
-  # Bring in subbasins polygon
-  polys <- readOGR('C:/HardDriveBackup/R/BCG/BCGgit/data','AboveOther_final')
-  # Make shapefile from dfInCorrectFormat
-  sites_shp <- dfInCorrectFormat
-  coordinates(sites_shp) <- ~Longitude+Latitude
-  sites_shp@proj4string <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") #first need to give it it's own projection 
-  dfOUT <- data.frame(matrix(ncol=1,nrow=1))
-  names(dfOUT) <- 'Subbasin'
-  # Pull Subbasin information where site lat/long intersects
-  for(i in 1:length(sites_shp)){
-    sites_subB <- polys[sites_shp[i,],]
-    dfOUT[i,] <- as.character(sites_subB@data[1,])
-  }
-  dfInCorrectFormat <- cbind(dfInCorrectFormat,dfOUT)%>%
-    mutate(Subbasin_short=revalue(Subbasin,c('Upper New'='UNew','Middle New- Virginia'='MNew_VA'
-                                             ,'Middle New- West Virginia'='MNew_WV','Lower New'='LNew'
-                                             ,'Upper Levisa'='ULev','Upper Kanawha'='UKan'
-                                             ,'Upper Guyandotte'='UGuy','Lower Guyandotte'='LGuy'
-                                             ,'Upper Clinch, Tennessee, Virginia'='UClinch'
-                                             ,'Twelvepole'='Tpole'),warn_missing=F)) # Rename values as they come out of shapefile to match attribute lists
-}
+
 
 # BCG Model
 BCG_Model_GIS <- function(dfInCorrectFormat){

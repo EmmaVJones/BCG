@@ -1,7 +1,3 @@
-library(shiny)
-library(leaflet)
-
-
 shinyUI(
   navbarPage('Ecoregion 69 BCG Model: Fish',
              tabPanel('About',fluidRow(column(10,
@@ -44,6 +40,8 @@ shinyUI(
                         fileInput('GISbasins','Upload Subbasins shapefile',accept=c('.shp','.dbf','.sbn','.sbx'
                                                                                     ,'.shx',".prj"), multiple=TRUE)),
                       mainPanel(# conditional panel? make them upload data first?
+                        verbatimTextOutput('GISbasins2'),
+                        verbatimTextOutput('datapath2'),
                         leafletOutput('Map'),
                         tableOutput('stationsWithSubbasins'))
                       ),

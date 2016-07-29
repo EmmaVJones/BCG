@@ -1,3 +1,19 @@
+suppressMessages({
+  library(shiny)
+  library(shinyBS)
+  library(shinyjs)
+  library(leaflet)
+  library(DT)
+  library(rgdal)
+  library(raster)
+  library(data.table)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(purrr)
+})
+
+
 library(shiny)
 library(leaflet)
 library(raster)

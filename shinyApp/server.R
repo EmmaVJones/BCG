@@ -94,7 +94,22 @@ shinyServer(function(input, output, session) {
       addMarkers(data=subB(), ~Longitude,~Latitude,
                  popup=paste(sep="<br/>",strong('Station:'),subB()$SampleName,strong('Date Sampled:'),subB()$Date))}})
   
+  
+  
+  
   ## Tab 3, run the model
+  # BCG Model, need to put in modal!!!!!!!!!!!!!! esp bc need to have user bring in attribute RDS
+  
+  BCGresults <- eventReactive(input$runModel,{#withProgress(message='Processing Sites',value=0,{
+    BCG_Model_GIS(subB())})#})
+  
+  # Display BCG model results
+  options(digits=3)
+  output$BCGresults <- renderDataTable({if(!is.null(BCGresults())){
+    datatable(BCGresults(),options = list(lengthMenu=list(c(5,10,25,-1),c('5','10','25','All')),pageLength=10))}})
+    
+    
+    
   
 })
   

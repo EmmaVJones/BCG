@@ -429,8 +429,7 @@ AboveFallsSmallModel_NOBKT <- function(sampleName,taxaListFromOneSite){
 
 ### GIS COMPONENT
 
-
-# BCG Model
+# Final BCG Model
 BCG_Model_GIS <- function(dfInCorrectFormat){
   # split input dataframe by sampples, return list of dataframes
   splits <-split(dfInCorrectFormat,dfInCorrectFormat$SampleName,drop=T)%>% 
@@ -442,7 +441,8 @@ BCG_Model_GIS <- function(dfInCorrectFormat){
                      ,'close','Model','Comment')
   
   for(i in 1:length(splits)){ #loop through each dataframe in the list of dataframes and do:
-    # Attach correct taxa attributes based on SubBasin
+    #### Get attribute data in
+    att <- readRDS('C:/HardDriveBackup/R/BCG/BCGgit/data/attributes.RDS')
     splits[[i]] <- join(splits[[i]],att,by=c('ScientificName','CommonName','Subbasin_short'))
     # basic housekeeping
     print(i)
@@ -494,5 +494,3 @@ BCG_Model_GIS <- function(dfInCorrectFormat){
   }
   return(result)
 }
-
-

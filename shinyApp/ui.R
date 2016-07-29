@@ -60,7 +60,7 @@ shinyUI(
                         actionButton("sendtoDB","Send to Database")),
                       mainPanel(
                         h4(strong('BCG Model Results'),
-                           tableOutput('BCGresults')))
+                           dataTableOutput('BCGresults')))
              )))
                                             
 

@@ -435,7 +435,7 @@ SubbasinConnection <- function(dfInCorrectFormat){
   # Pull Subbasin information where site lat/long intersects
   for(i in 1:length(sites_shp)){
     sites_subB <- polys[sites_shp[i,],]
-    dfOUT[i,] <- as.character(sites_subB@data[1,])
+    dfOUT[i,] <- as.character(sites_subB@data[1,1])
   }
   dfInCorrectFormat <- cbind(dfInCorrectFormat,dfOUT)%>%
     mutate(Subbasin_short=revalue(Subbasin,c('Upper New'='UNew','Middle New- Virginia'='MNew_VA'

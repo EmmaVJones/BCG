@@ -2,9 +2,9 @@ name: BCGapp
 account: evjones
 server: shinyapps.io
 appId: 118245
-bundleId: 523113
+bundleId: 523163
 url: https://evjones.shinyapps.io/BCGapp/
-when: 1470250239.49231
+when: 1470253274.22538
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: serverworks.R|www/sandstone.css|www/slate.css|www/united.css

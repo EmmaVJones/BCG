@@ -49,8 +49,8 @@ shinyUI(fluidPage(theme = "yeti.css", #sandstone #slate good until final DT outp
                       sidebarPanel(
                         h4(strong('Instructions:')),
                         p("Once you have ensured the sites are plotting in the correct Subbasin, click 'Run BCG Model'
-                          to run the model. Once the calculations are complege, results will be displayed in a table
-                          in the main panel. A progress bar on the top of the screen will indicate computational 
+                          to run the model. When the calculations are complete, results will be displayed in a table 
+                          to the right. A progress bar on the top of the screen will indicate computational 
                           progress. You may download a flat file of results by clicking the 'Download Results' button or you 
                           can send results back to your database (if connected) by clicking 'Send to Database.'"),
                         actionButton("runModel","Run BCG Model"),

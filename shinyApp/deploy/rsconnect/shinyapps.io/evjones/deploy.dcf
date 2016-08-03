@@ -1,0 +1,9 @@
+name: deploy
+account: evjones
+server: shinyapps.io
+appId: 118241
+bundleId: 522913
+url: https://evjones.shinyapps.io/deploy/
+when: 1470235502.36166
+asMultiple: FALSE
+asStatic: FALSE
